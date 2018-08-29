@@ -16,9 +16,9 @@
 title: Geekocephale
 email: martinmenestret@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Bienvenue sur mon site perso :)
+  Bienvenue sur mon site perso :).
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://mmenestret.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 logo: "./favicon/favicon.ico"
 twitter_username: mmenestret
 github_username:  mmenestret
