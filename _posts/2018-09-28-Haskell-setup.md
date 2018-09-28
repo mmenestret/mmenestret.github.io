@@ -82,10 +82,14 @@ After having installed everything:
   - On the second one run `ghci` which will open a REPL in the context of your project (in that one you'll have to `:r` to try the functions that you write)
 - Now you're all set, no more excuses :D
 
-_Click image to enlarge_
 [![Everything's OK](/ressources/haskell-setup/OK.png)](/ressources/haskell-setup/OK.png)
 _Click image to enlarge_
 [![Something's wrong](/ressources/haskell-setup/KO.png)](/ressources/haskell-setup/KO.png)
+_Click image to enlarge_
+
+# Conclusion
+
+That's a small but good enough setup for me now.
 
 I'll try to update my post if I find new interesting stuff to add to that setup.
 Feel free to contact me if anything needs to be corrected or if you feel so :).
