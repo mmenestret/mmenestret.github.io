@@ -91,3 +91,8 @@ I'll try to update my post if I find new interesting stuff to add to that setup.
 Feel free to contact me if anything needs to be corrected or if you feel so :).
 
 Happy Haskelling !
+
+---
+
+___Edit__: I felt like Haskell Language Server was taking a lot of memory and... [indeed it does]((https://github.com/haskell/haskell-ide-engine/issues/665)).
+I hope it's gonna be fixed soon, in the meantime, you can desactivate and reactivate it in your _VS Code_ extensions when it gets too greedy...
