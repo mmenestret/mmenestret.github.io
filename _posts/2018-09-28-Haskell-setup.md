@@ -99,4 +99,4 @@ Happy Haskelling !
 ---
 
 ___Edit__: I felt like Haskell Language Server was taking a lot of memory and... [indeed it does]((https://github.com/haskell/haskell-ide-engine/issues/665)).
-I hope it's gonna be fixed soon, in the meantime, you can desactivate and reactivate it in your VS Code extensions when it gets too greedy...
+I hope it's gonna be fixed soon, in the meantime, you can desactivate and reactivate it in your VS Code extensions when it gets too greedy..._
