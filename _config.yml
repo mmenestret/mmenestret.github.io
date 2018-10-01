@@ -23,7 +23,6 @@ logo: "./favicon/favicon.ico"
 twitter_username: mmenestret
 github_username:  mmenestret
 permalink: /blog/:year/:month/:day/:title
-google_analytics: UA-126744192-1
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-minimal
