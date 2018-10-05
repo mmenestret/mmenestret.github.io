@@ -3,7 +3,7 @@ layout: post
 title: "Anatomy of a type class"
 author: "Martin Menestret"
 date: 2018-10-05
-tags: Scala, Functional programming
+tags: [Scala, Functional programming]
 ---
 
 I will try to group here, in an anatomy atlas, basic notions of functional programming that I find myself explaining often lately into a series of articles.
@@ -207,7 +207,7 @@ It makes the type `C` automatically an instance of your _type class_ !
 
 If you want to keep diving deeper, some interesting stuff can be found on my [FP resources list](https://github.com/mmenestret/fp-ressources) and in particular:
 
-- [Mastering Typeclass Induction — Aaron Levin](https://www.youtube.com/watch?v=Nm4OIhjjA2o)
+- [Mastering Typeclass Induction](https://www.youtube.com/watch?v=Nm4OIhjjA2o)
 - [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html)
 - [Implicits, type classes, and extension methods](https://kubuszok.com/compiled/implicits-type-classes-and-extension-methods/)
 
@@ -218,8 +218,10 @@ So to conclude here, we why _type classes_ are useful, what they are, how they a
 As a small reminder, we saw:
 
 - How to create a _class_ of types that provides shared behaviors
+
     - Without __having to know it beforehand__ (we don't extend our types nor modify them)
     - Without __mixing that behavior to the data (the case class itself)__
+
 - How to add new instances to our _type class_
 - To leverage polymorphism by designing __polymorphic functions__ defined and working for any type `T` that provides an (implicit) instance of it's required _type class_ !
 
