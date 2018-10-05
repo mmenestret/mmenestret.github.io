@@ -72,7 +72,10 @@ It represents an abstraction of something that a grouping of types would have in
 _Type classes_ are not specific to _Scala_ and can be found in many functional programming languages.
 They are not a first class construct in _Scala_, as it can be in _Haskell_ but it still can be done quit easily.
 
-In _Scala_ it is encoded by a _trait_ which exposes the _"contract"_ of the _type class_, what the _type class_ is going to abstract over, and by the _concrete implementations_ of that trait for every types that we want to be instances of that _type classes_.
+In _Scala_ it is encoded by:
+
+1. A _trait_ which exposes the _"contract"_ of the _type class_, what the _type class_ is going to abstract over, 
+2. The _concrete implementations_ of that trait for every types that we want to be instances of that _type classes_.
 
 Our _type class_ for _"types that can say Hi"_ is going to be:
 
@@ -91,10 +94,10 @@ case class Player(nickname: String, level: Int)
 val geekocephale = Player("Geekocephale", 42)
  ```
 
- We now create a `Player` instance of the `CanGreet` _trait_ for it to be an instance of our _type class_:
+ We now create a `Player` instance of the `CanGreet` _trait_ for it to be an instance of our _type class_.
 
  ```scala
-val playerGreeter = new CanGreet[Player] {
+val playerGreeter: CanGreet[Player] = new CanGreet[Player] {
     def sayHi(t: Player): String = s"Hi, I'm player ${t.nickname}, I'm lvl ${t.level} !"
 }
 ```
@@ -112,20 +115,48 @@ greet(geekocephale, playerGreeter)
 ```
 
 However, that is a bit cumbersome to use, and we can leverage _Scala_'s _implicits_ power to make our life easier (and to get closer to what's done in other languages' _type class_ machinery).
-Let's redifine our `greet` function, and make our `CanGreet` instance _implicit_ as well:
+
+Let's redifine our `greet` function, and make our `CanGreet` instance _implicit_ as well.
+
+Two convenient places to store those instances are:
+
+- Either in the _type class_ companion object 
+- Or in the type's _companion object_ of your type `T`, here `Player` (my prefered way)
+
+Because both of their scopes are checked when a function requires an implicit of type `TC[T]` where `TC` is your _type class trait_ and `T` is the type for which you look for a _type class_ instance.
 
 ```scala
-def greet[T](t: T)(implicit greeter: CanGreet[T]): String = greeter.sayHi(t)
-
-implicit val playerGreeter = new CanGreet[Player] {
-    def sayHi(t: Player): String = s"Hi, I'm player ${t.nickname}, I'm lvl ${t.level} !"
+object Player {
+    implicit val playerGreeter: CanGreet[Player] = new CanGreet[Player] {
+        def sayHi(t: Player): String = s"Hi, I'm player ${t.nickname}, I'm lvl ${t.level} !"
+    }
 }
+
+def greet[T](t: T)(implicit greeter: CanGreet[T]): String = greeter.sayHi(t)
 ```
 
 Now, we can call our `greet` function without explicitly passing the `CanGreet` instance as long as we have an _implicit_ instance for the type `T` we are using in scope (which we have, `playerGreeter`) !
 
 ```scala
 greet(geekocephale)
+```
+
+To sum up, here's all the code that we wrote so far:
+
+```scala
+trait CanGreet[T] {
+    def sayHi(t: T): String
+}
+
+case class Player(nickname: String, var level: Int)
+
+object Player {
+    implicit val playerGreeter: CanGreet[Player] = new CanGreet[Player] {
+        def sayHi(t: Player): String = s"Hi, I'm player ${t.nickname}, I'm lvl ${t.level} !"
+    }
+}
+
+def greet[T](t: T)(implicit greeter: CanGreet[T]): String = greeter.sayHi(t)
 ```
 
 # Optionnal cosmetics
@@ -166,7 +197,7 @@ It does exactly what we did in our last `greet` function implementation, allowin
 def greet[T: CanGreet](t: T): String = CanGreet[T].sayHi(t)
 ```
 
-`CanGreet[T]` is calling the companion object `apply` function (`CanGreet[T]` is in fact desugarized as ``CanGreet.apply[T]()`) to summon `T`'s `CanGreet` instance from implicit scope and we can immediately use it in our `greet` function by calling `.sayHi(t)` on it.
+`CanGreet[T]` is calling the companion object `apply` function (`CanGreet[T]` is in fact desugarized as ``CanGreet.apply[T]()``) to summon `T`'s `CanGreet` instance from implicit scope and we can immediately use it in our `greet` function by calling `.sayHi(t)` on it.
 
 Finally, you'll also probably see _implicit classes_, called _syntax_ for our _type class_ that holds the operation our _type class_ permits:
 
@@ -180,6 +211,30 @@ Allowing our `greet` function to be called in a more convenient, OOP method way:
 
 ```scala
 geekocephale.greet
+```
+
+To sum up, here's all the code we wrote with these upgrades:
+
+```scala
+trait CanGreet[T] {
+    def sayHi(t: T): String
+}
+
+object CanGreet {
+    def apply[T: CanGreet](implicit C: CanGreet[T]): CanGreet[T] = C
+}
+
+implicit class CanGreetSyntax[T: CanGreet](t: T) {
+    def greet: String = CanGreet[T].sayHi(t)
+}
+
+case class Player(nickname: String, var level: Int)
+
+object Player {
+    implicit val playerGreeter: CanGreet[Player] = new CanGreet[Player] {
+        def sayHi(t: Player): String = s"Hi, I'm player ${t.nickname}, I'm lvl ${t.level} !"
+    }
+}
 ```
 
 # Tooling
@@ -227,3 +282,7 @@ We went through:
 
 I'll try to keep that blog post updated.
 If there are any additions, imprecision, or mistakes that I should correct or if you need more explanations, feel free to contact me on Twitter or by mail !
+
+---
+
+___Edit__: Thanks [Jules Ivanic](https://twitter.com/guizmaii) for the review :).
