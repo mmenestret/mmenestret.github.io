@@ -285,4 +285,4 @@ If there are any additions, imprecision, or mistakes that I should correct or if
 
 ---
 
-___Edit__: Thanks [Jules Ivanic](https://twitter.com/guizmaii) for the review :).
+___Edit__: Thanks [Jules Ivanic](https://twitter.com/guizmaii) for the review :)._
