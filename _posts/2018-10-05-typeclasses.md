@@ -213,17 +213,17 @@ If you want to keep diving deeper, some interesting stuff can be found on my [FP
 
 # Conclusion
 
-So to conclude here, we why _type classes_ are useful, what they are, how they are encoded in _Scala_ and some cosmetics and tooling that might help you to work with them.
+So to conclude here, we saw why _type classes_ are useful, what they are, how they are encoded in _Scala_ and some cosmetics and tooling that might help you to work with them.
 
-As a small reminder, we saw:
+We went through:
 
 - How to create a _class_ of types that provides shared behaviors
 
     - Without __having to know it beforehand__ (we don't extend our types nor modify them)
-    - Without __mixing that behavior to the data (the case class itself)__
+    - Without __having to mix that behavior to the data__ (the case class itself)
 
-- How to add new instances to our _type class_
-- To leverage polymorphism by designing __polymorphic functions__ defined and working for any type `T` that provides an (implicit) instance of it's required _type class_ !
+- How to create new instances of our _type class_
+- How to leverage polymorphism by designing __polymorphic functions__ defined and working for any type `T` as long as an (implicit) instance of it's required _type class_ is provided !
 
 I'll try to keep that blog post updated.
 If there are any additions, imprecision, or mistakes that I should correct or if you need more explanations, feel free to contact me on Twitter or by mail !
