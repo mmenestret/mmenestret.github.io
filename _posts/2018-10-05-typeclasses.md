@@ -55,7 +55,7 @@ It is a mechanism allowing a function to be defined in such a way that the actua
 
 You won't have to define `printInt`, `printDouble`, `printString` functions, a `print` function might be enough.
 
-The purpose of that is mainly to program by manipulating _interfaces_ (as the generic definition, the layer allowing elements to communicate, not as a Java interface) exposing shared, common, behaviors and use these behaviors instead of writing different function implementations for each of the concrete types abstracted by these interfaces.
+The purpose of that is mainly to program by manipulating _interfaces_ (as a concept, the layer allowing elements to communicate, not as in a _Java Interface_ even their purpose is to encode that concept) exposing shared, common, behaviors and use these behaviors instead of writing different function implementations for each of the concrete types abstracted by these interfaces.
 Your `print` function might somehow require a `Printable` interface, abstracting for its argument the ability to print themselves.
 
 - _Object oriented programming_ often use __subtyping via interface inheritance__ to permit polymorphism by making concrete classes inherit interfaces exposing the needed shared behaviors
@@ -79,7 +79,7 @@ Our _type class_ for _"types that can say Hi"_ is going to be:
 ```scala
 trait CanGreet[T] {
     def sayHi(t: T): String
-  }
+}
 ```
 
 Representing all the types `T` which have the capability to `sayHi`.
