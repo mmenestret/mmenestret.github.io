@@ -18,7 +18,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
+    <div class="wrapper" style="width: 1060px;">
       <header>
         <h1><a href="{{ "/" | absolute_url }}">Geek<img style="display:inline; height: 30px;" src="{{ "/ressources/geekocephale.png"}} "/>cephale</a></h1>
 
@@ -39,10 +39,19 @@
         </p>
         
         <!-- <p><a href="/home"><strong>Accueil</strong></a></p> -->
-        <p><a href="/blog"><strong>Articles</strong></a></p>
+        <p>
+          <a href="/blog"><strong>Blog posts</strong></a><br/>
+            {%- for post in site.posts -%}              
+                <span class="post-meta">{{ post.date | date_to_string }}</span>
+                <a class="post-link" href="{{ post.url | relative_url }}">
+                        {{ post.title }}
+                </a>
+                <br/>
+            {%- endfor -%}
+        </p>
         <!-- <p><a href="/about"><strong>Qui suis-je ?</strong></a></p> -->
       </header>
-      <section>
+      <section style="width: 700px;">
 
       {{ content }}
 
