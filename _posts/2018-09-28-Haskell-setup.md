@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "A minimal Haskell development environment for beginners with VS Code"
-author: "Martin Menestret"
+author: "Myself"
 date: 2018-09-28
 tags: Haskell
 ---

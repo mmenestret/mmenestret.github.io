@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Anatomy of a type class"
-author: "Martin Menestret"
+author: "Myself"
 date: 2018-10-05
 tags: [Scala, Functional programming]
 ---
