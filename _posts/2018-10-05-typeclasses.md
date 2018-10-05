@@ -12,7 +12,7 @@ The idea here is to have a place to point people needing explanations and to inc
 I'll try to focus more on making the reader feel an intuition, a feeling about the concepts rather than on the perfect, strict correctness of my explanations.
 
 - Part 1: [Anatomy of a type class]({{ site.baseurl }}{% link _posts/2018-10-05-typeclasses.md %})
-- Part 2: Anatomy of an algebraïc data types (ADT) - Not written yet
+- Part 2: [Anatomy of an algebra]({{ site.baseurl }}{% link _posts/2018-10-06-algebras.md %})
 - Part 3: Anatomy of functors, applicatives and monads - Not written yet
 
 # Motivation
@@ -281,7 +281,7 @@ We went through:
 - How to leverage polymorphism by designing __polymorphic functions__ defined and working for any type `T` as long as an (implicit) instance of it's required _type class_ is provided !
 
 I'll try to keep that blog post updated.
-If there are any additions, imprecision, or mistakes that I should correct or if you need more explanations, feel free to contact me on Twitter or by mail !
+If there are any additions, imprecision or mistakes that I should correct or if you need more explanations, feel free to contact me on Twitter or by mail !
 
 ---
 
