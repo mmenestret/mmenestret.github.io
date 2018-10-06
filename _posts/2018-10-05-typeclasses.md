@@ -3,6 +3,7 @@ layout: post
 title: "Anatomy of a type class"
 author: "Myself"
 date: 2018-10-05
+catorgories: [anatomy-atlas]
 tags: [Scala, Functional programming]
 ---
 
@@ -11,11 +12,12 @@ I will try to group here, in an anatomy atlas, basic notions of functional progr
 The idea here is to have a place to point people needing explanations and to increase my own understanding of these subjects by trying to explain them the best I can.
 I'll try to focus more on making the reader feel an intuition, a feeling about the concepts rather than on the perfect, strict correctness of my explanations.
 
-- Part 1: [Anatomy of an algebra]({{ site.baseurl }}{% post_url 2018-10-06-algebras %})
-- Part 2: [Anatomy of a type class]({{ site.baseurl }}{% post_url 2018-10-05-typeclasses %})
-- Part 3: Anatomy of semi groups and monoids - Yet to come !
-- Part 4: Anatomy of functors, applicatives and monads - Yet to come !
-- Part 5: Anatomy of the tagless final encoding - Yet to come !
+- Part 1: [Anatomy of functional programming]() - Yet to come !
+- Part 2: [Anatomy of an algebra]({{ site.baseurl }}{% post_url 2018-10-06-algebras %})
+- Part 3: [Anatomy of a type class]({{ site.baseurl }}{% post_url 2018-10-05-typeclasses %})
+- Part 4: Anatomy of semi groups and monoids - Yet to come !
+- Part 5: Anatomy of functors, applicatives and monads - Yet to come !
+- Part 6: Anatomy of the tagless final encoding - Yet to come !
 
 # Motivation
 
