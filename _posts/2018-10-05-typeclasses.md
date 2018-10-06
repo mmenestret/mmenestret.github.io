@@ -19,7 +19,7 @@ I'll try to focus more on making the reader feel an intuition, a feeling about t
 
 # Motivation
 
-## <a name="databehavior"></a>Data/behavior relationship
+## Data/behavior relationship
 
 _OOP_ and _FP_ have two different approaches when it comes to data/behavior relationship:
 
