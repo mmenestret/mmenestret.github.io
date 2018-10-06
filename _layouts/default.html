@@ -41,7 +41,7 @@
         
         <!-- <p><a href="/home"><strong>Accueil</strong></a></p> -->
         <p>
-          <a href="/blog"><strong>Blog posts</strong></a><br/>
+          <a href="/blog"><strong>Blog posts</strong></a><br/><br/>
             {%- for post in site.posts -%}              
                 <span class="post-meta">{{ post.date | date_to_string }}</span>
                 <a class="post-link" href="{{ post.url | relative_url }}">
