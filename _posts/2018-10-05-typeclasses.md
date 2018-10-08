@@ -225,7 +225,7 @@ trait CanGreet[T] {
 }
 
 object CanGreet {
-    def apply[T: CanGreet](implicit C: CanGreet[T]): CanGreet[T] = C
+    def apply[T](implicit C: CanGreet[T]): CanGreet[T] = C
 }
 
 implicit class CanGreetSyntax[T: CanGreet](t: T) {
