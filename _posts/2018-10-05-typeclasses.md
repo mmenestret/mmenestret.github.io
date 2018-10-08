@@ -201,7 +201,7 @@ It does exactly what we did in our last `greet` function implementation, allowin
 def greet[T: CanGreet](t: T): String = CanGreet[T].sayHi(t)
 ```
 
-`CanGreet[T]` is calling the companion object `apply` function (`CanGreet[T]` is in fact desugarized as ``CanGreet.apply[T]()``) to summon `T`'s `CanGreet` instance from implicit scope and we can immediately use it in our `greet` function by calling `.sayHi(t)` on it.
+`CanGreet[T]` is calling the companion object `apply` function (`CanGreet[T]` is in fact desugarized as ``CanGreet.apply[T]()`` with the implicit instance in scope passed to `apply`) to summon `T`'s `CanGreet` instance from implicit scope and we can immediately use it in our `greet` function by calling `.sayHi(t)` on it.
 
 Finally, you'll also probably see _implicit classes_, called _syntax_ for our _type class_ that holds the operation our _type class_ permits:
 
