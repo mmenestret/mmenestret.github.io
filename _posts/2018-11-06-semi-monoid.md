@@ -245,7 +245,7 @@ To sum up, we saw:
 - How simple __semigroups__ and __monoids__ are and how closely related they are
 - We saw examples of _semigroups_ and _monoids_
 - We had an insight about how useful these FP constructs can be in real life
-- And finally we showed how they are encoded in _Scala_
+- And finally we showed how they are encoded in _Scala_ and had a glimpse on what you can do with it thanks to major FP librairies
 
 I'll try to keep that blog post updated.
 If there are any additions, imprecision or mistakes that I should correct or if you need more explanations, feel free to contact me on Twitter or by mail !
