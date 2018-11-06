@@ -85,26 +85,26 @@ Indeed,
 - String under concatenation
 - A LOT more.
 
-We'll now explore _monoids_ since they are a "upgraded" versions of _semigroups_.
+We'll now explore _monoids_ since they are a "upgraded" version of _semigroups_.
 
 # What is a _monoid_ ?
 
 ## General definition
 
-Given or definition of a _semigroup_, the definition of a _monoid_ is pretty straight forward:
+Given the definition of a _semigroup_, the definition of a _monoid_ is pretty straight forward:
 
 > In mathematics, a _monoid_ is an algebraic structure consisting of a set together with an associative binary operation and an identity element.
 
-Which means a _semigroup_ and an identity element.
+Which means that a _monoid_ is a _semigroup_ plus an identity element.
 
-Or in our programming terms:
+In our programming terms:
 
 In the context of programming, a _monoid_ is composed of two things:
 
 1. A _semigroup_:
     - A type `A`
     - An associative operation combining two values of type `A` into a value of type `A`, let's call it `combine`
-2. An identity element of type `A`, let's call it `id` that has to obey the following laws:
+2. An identity element of type `A`, let's call it `id`, that has to obey the following laws:
     - `combine(a, id) == a` with `a` a value of type `A`
     - `combine(id, a) == a` with `a` a value of type `A`
 
@@ -127,14 +127,14 @@ We could take our _semigroups_ examples here and add their respective identity e
         - `List(1, 2, 3) ++ Nil == List(1, 2, 3)`
         - `Nil ++ List(1, 2, 3) == List(1, 2, 3)`
 
-Whenever you have an identity element for your semigroup's type that holds the identity laws, then you have a _monoid_ for it.
+Whenever you have an identity element for your _semigroup_'s type and `combine` operation that holds the identity laws, then you have a _monoid_ for it.
 
-But be careful, there are some _semigroups_ which are not monoids, for example:
+But be careful, there are some _semigroups_ which are not _monoids_:
 
-Tuples form a _semigroup_ under first.
+Tuples form a _semigroup_ under first (which gives back the tuple's first element).
 
 - type: `Tuple2[A, A]`
-- operation: `first` (`def first[A, A](t: Tuple2[A, A]): A = t._1`)
+- operation: `first` (`def first[A](t: Tuple2[A, A]): A = t._1`)
 
 Indeed,
 
@@ -147,21 +147,21 @@ But there is no way to provide an identity element `id` of type `A` so that:
 
 # What the hell is it for ?
 
-_Monoids_ is a functional programming constructs that embodies the notion of combining things together, often in order to reduce things into one thing and because that combining operation is associative, it can be parallelized.
+_Monoids_ is a functional programming constructs that __embodies the notion of combining "things" together__, often in order to reduce "things" into one "thing". Given that the combining operation is associative, it can be __parallelized__.
 
-And that's a BIG deal.
+And that's a __BIG__ deal.
 
 As a simple illustration, this is what you can do, absolutely fearlessly when you know your type `A` forms a _monoid_ under `combine` with identity `id`:
 
-- You have a huge, large, massive list of `A`s
+- You have a huge, large, massive list of `A`s that you want to reduce into a single `A`
 - You have a cluster of N nodes and a master node
 - You split your huge, large, massive list of `A`s in N sub lists
-- You distribute each sub lists to a different node of your cluster
-- Each node reduce their respective lists by `combining` their elements 2 by 2 until they have 1 final element left
-- Once done, they send back their intermediary results to the master nodes
-- The master node only has N intermediary values to `combine` down (in the same order as the sub lists these final values were produced from) to a final result
+- You distribute each sub list to a node of your cluster
+- Each node reduce its own sub list by `combining` its elements 2 by 2 down to 1 final element
+- They send back their results to the master node
+- The master node only has N intermediary results to `combine` down (in the same order as the sub lists these intermediary results were produced from, remember, associativity !) to a final result
 
-You successfully, without any fear of messing things up, parallelized, almost for free, a process on a huge list thanks to monoids.
+You successfully, without any fear of messing things up, parallelized, almost for free, a reduction process on a huge list thanks to _monoids_.
 
 Does it sound familiar ? That's naively how fork-join operations works on Spark ! Thank you _monoids_ !
 
@@ -192,10 +192,10 @@ case class Sale(items: List[ItemId], totalPrice: Int)
 
 I want to be able to combine all my year's sales into one big, consolidated, sale.
 
-Let's define a _monoid_ type class instance for my `Sale` by defining:
+Let's define a _monoid_ type class instance for `Sale` by defining:
 
-- `id` being an empty `Sale` which contains no items, and 0 as `totalPrice`
-- `combine` as concatanation of item lists and addition `totalPrice`s
+- `id` being an empty `Sale` which contains no item ids, and 0 as `totalPrice`
+- `combine` as concatanation of item id lists and addition of `totalPrice`s
 
 ```scala
 implicit val saleMonoid: Monoid[Sale] = new Monoid[Sale] {
@@ -227,6 +227,8 @@ __Nota bene:__ Here, for sake of simplicity, I did not implement `combineAll` wi
 def combineAll[A](as: List[A])(implicit M: Monoid[A]): A = as.foldLeft(M.id)(M.combine)
 ```
 
+Voilà !
+
 # More material
 
 If you want to keep diving deeper, some interesting stuff can be found on my [FP resources list](https://github.com/mmenestret/fp-ressources) and in particular:
@@ -240,9 +242,9 @@ If you want to keep diving deeper, some interesting stuff can be found on my [FP
 
 To sum up, we saw:
 
-- How simple __semigroups__ are and how closely related they are to __monoids__
-- We saw a lot of examples of _semigroups_ and _monoids_
-- We felt how useful these FP constructs can be in real life
+- How simple __semigroups__ and __monoids__ are and how closely related they are
+- We saw examples of _semigroups_ and _monoids_
+- We had an insight about how useful these FP constructs can be in real life
 - And finally we showed how they are encoded in _Scala_
 
 I'll try to keep that blog post updated.
