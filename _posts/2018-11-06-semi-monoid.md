@@ -147,7 +147,7 @@ But there is no way to provide an identity element `id` of type `A` so that:
 
 # What the hell is it for ?
 
-_Monoids_ is a functional programming constructs that __embodies the notion of combining "things" together__, often in order to reduce "things" into one "thing". Given that the combining operation is associative, it can be __parallelized__.
+_Monoid_ is a functional programming constructs that __embodies the notion of combining "things" together__, often in order to reduce "things" into one "thing". Given that the combining operation is associative, it can be __parallelized__.
 
 And that's a __BIG__ deal.
 
@@ -183,11 +183,11 @@ trait Monoid[M] extends Semigroup[M] {
 }
 ```
 
-And here is my business domain modeling.
+And here is my business domain modeling:
 
 ```scala
 type ItemId = Int
-case class Sale(items: List[ItemId], totalPrice: Int)
+case class Sale(items: List[ItemId], totalPrice: Double)
 ```
 
 I want to be able to combine all my year's sales into one big, consolidated, sale.
@@ -195,7 +195,7 @@ I want to be able to combine all my year's sales into one big, consolidated, sal
 Let's define a _monoid_ type class instance for `Sale` by defining:
 
 - `id` being an empty `Sale` which contains no item ids, and 0 as `totalPrice`
-- `combine` as concatanation of item id lists and addition of `totalPrice`s
+- `combine` as concatenation of item id lists and addition of `totalPrice`s
 
 ```scala
 implicit val saleMonoid: Monoid[Sale] = new Monoid[Sale] {

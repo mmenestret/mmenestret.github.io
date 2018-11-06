@@ -55,21 +55,28 @@ _Ad hoc polymorphism_ is defined on _Wikipedia_ by:
 
 > Ad hoc polymorphism is a kind of polymorphism in which polymorphic functions can be applied to arguments of different types, because a polymorphic function can denote a number of distinct and potentially heterogeneous implementations depending on the type of argument(s) to which it is applied
 
-It is a mechanism allowing a function to be defined in such a way that the actual _function implementation_ that is going to be called at runtime depends on the parameter types it is called with.
+It is a mechanism allowing a function to be defined in such a way that the actual _function implementation_ that is going to be called depends on the parameter types it is applied to.
 
-You won't have to define `printInt`, `printDouble`, `printString` functions, a `print` function might be enough.
+_Ad hoc polymorphism_ is related to operator overloading in a sense that you won't have to define `printInt`, `printDouble`, `printString` functions, a `print` function is enough, just like a single `+` operator should be needed on `String` and `Int`.
+
+Our `print` and `+` will rely on _ad hoc polymorphism_ to behave differently based on the type of the the parameter they are applied to.
 
 The purpose of that is mainly to program by manipulating _interfaces_ (as a concept, the layer allowing elements to communicate, not as in a _Java Interface_ even their purpose is to encode that concept) exposing shared, common, behaviors and use these behaviors instead of writing different function implementations for each of the concrete types abstracted by these interfaces.
 Your `print` function might somehow require a `Printable` interface, abstracting for its argument the ability to print themselves.
 
 - _Object oriented programming_ often use __subtyping via interface inheritance__ to permit polymorphism by making concrete classes inherit interfaces exposing the needed shared behaviors
-- _Functionnal programming_, willing to strongly separate data and behavior __favours type classes__ which allows to add functionalities to existing types without having to modify them or to know they will need these functionnalities beforehand.
+- _Functionnal programming_, willing to strongly separate data and behavior __favours type classes__ which allows to add behaviors to existing types without having to modify them or having to plan they will need these functionnalities beforehand.
 
 # What's a type class ?
 
 A _type class_ can be described literally as a class of types, a grouping of types, that shares common capabilities.
 
 It represents an abstraction of something that a grouping of types would have in common, just as _"Things that can say Hi"_ abstracts over every concrete types that have the ability to greet or as _"Things that have petals"_ might abstract over flowers in the real world.
+
+It plays the same role as an interface in OOP but it is more than that:
+
+- It allows to add behavior to existing types (even type that are out of our codebase scope)
+- It permits conditionnal interfacing, by that I mean, we can encode that `A` is a member of the type class `T1` if `A` is also a member of type class `T2`
 
 # How can it be done in Scala ?
 
@@ -267,6 +274,7 @@ It makes the type `C` automatically an instance of your _type class_ !
 If you want to keep diving deeper, some interesting stuff can be found on my [FP resources list](https://github.com/mmenestret/fp-ressources) and in particular:
 
 - [Mastering Typeclass Induction](https://www.youtube.com/watch?v=Nm4OIhjjA2o)
+- [Type class, ultimate ad hoc](https://www.youtube.com/watch?v=2EdQFCP5mZ8)
 - [Type classes in Scala](https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html)
 - [Implicits, type classes, and extension methods](https://kubuszok.com/compiled/implicits-type-classes-and-extension-methods/)
 
