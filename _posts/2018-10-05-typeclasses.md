@@ -21,33 +21,18 @@ I'll try to focus more on making the reader feel an intuition, a feeling about t
 
 # Motivation
 
-## Data/behavior relationship
+## Data / behavior relationship
 
 _OOP_ and _FP_ have two different approaches when it comes to data/behavior relationship:
 
 - _Object oriented programming_ often __combines data and behavior__ by mixing them into classes that:
     - Store data as an internal state
     - Expose methods that act on it and may mutate it
-
-```scala
-case class Player(nickname: String, var level: Int) {
-    def levelUp(): Unit          = { level = level + 1 }
-    def sayHi(): String          = s"Hi, I'm player $nickname, I'm lvl $level !"
-}
-```
-
 - _Functional programming_ aims to completely __separate data from behavior__ by:
-    - Defining types (ADT) on one side that expose no behavior and only holds data
+    - Defining types ([ADT]({{ site.baseurl }}{% post_url 2018-10-06-algebras %})) on one side that expose no behavior and only holds data
     - Functions taking values of some of these types as inputs, acting on them and outputting values of some of those types (leaving the input values unchanged)
 
-```scala
-case class Player(nickname: String, var level: Int)
-
-object PlayerOperations {
-    def levelUp(p: Player): Player = p.copy(level = p.level + 1)
-    def sayHi(p: Player): String   = s"Hi, I'm player ${p.nickname}, I'm lvl ${p.level} !"
-}
-```
+ You can check [Anatomy of functional programming]({{ site.baseurl }}{% post_url 2018-10-08-fp %}) for examples.
 
 ## Polymorphism
 
