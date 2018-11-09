@@ -242,11 +242,11 @@ object Player {
 
 # Type classes bonus
 
-## More than interface subtyping
+## A posteriori subtyping
 
 _Type classes_ have more to offer than classical _OOP_ _subtyping_.
 
-_Type classes_ permit to add behavior to __existing types__ (including types that are not yours)
+_Type classes_ permit to add behavior to __existing types__ (including types that are not yours):
 
 ```scala
 import java.net.URL
