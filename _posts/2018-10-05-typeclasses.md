@@ -240,6 +240,49 @@ object Player {
 }
 ```
 
+# Type classes bonus
+
+## More than interface subtyping
+
+_Type classes_ have more to offer than classical _OOP_ _subtyping_.
+
+_Type classes_ permit to add behavior to __existing types__ (including types that are not yours)
+
+```scala
+import java.net.URL
+
+implicit val urlGreeter: CanGreet[URL] = new CanGreet[URL] {
+    override def sayHi(t: URL): String = s"Hi, I'm an URL pointing at ${t.getPath}"
+}
+```
+
+We just added to `java.net.URL` the property of being able to say Hi !
+
+## Conditionnal interfacing
+
+You can define conditionnal _type class_ instances:
+
+```scala
+implicit def listGreeter[A: CanGreet]: CanGreet[List[A]] = new CanGreet[List[A]] {
+    override def sayHi(t: List[A]): String = s"Hi, I'm an List : [${t.map(CanGreet[A].sayHi).mkString(",")}]"
+}
+```
+
+By requiring `[A: CanGreet]`, we just stated that `List[A]` in an instance of the `CanGreet` _type class_ if and only if `A` is an instance of `CanGreet`.
+
+Just to show you that we can push that conditional behavior further, we could have done something complety useless like:
+
+```scala
+implicit def listGreeter[A: CanGreet: MySndTypeClass](implicit c: MyThirdTypeClass[String]): CanGreet[List[A]] = ???
+```
+
+Here we request, for `List[A]` to be an instance of `CanGreet`, that:
+
+- `A` is instance of
+    - `CanGreet`
+    - `MySndTypeClass`
+- `String` is an instance of `MyThirdTypeClass` (which is, I have to admit, absolutly stupid).
+
 # Tooling
 
 - [Simulacrum](https://github.com/mpilquist/simulacrum) is an awesome library that helps tremendously reducing the boilerplate by using annotations that will generate the _type classe_ and syntax stuff for you at compile time
