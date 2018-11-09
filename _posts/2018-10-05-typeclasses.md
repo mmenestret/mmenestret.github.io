@@ -36,20 +36,25 @@ _OOP_ and _FP_ have two different approaches when it comes to data/behavior rela
 
 ## Polymorphism
 
+The general idea of _polymorphism_ is to increase code re-use by using a more generic code.
+
+The are several kinds of polymorphisms but the one adressed by _type classes_ is _ad hoc polymorphism_, so we are going to focus on that one.
+
 _Ad hoc polymorphism_ is defined on _Wikipedia_ by:
 
 > Ad hoc polymorphism is a kind of polymorphism in which polymorphic functions can be applied to arguments of different types, because a polymorphic function can denote a number of distinct and potentially heterogeneous implementations depending on the type of argument(s) to which it is applied
 
-It is a mechanism allowing a function to be defined in such a way that the actual _function implementation_ that is going to be called depends on the parameter types it is applied to.
+It is a mechanism allowing a function to be defined in such a way that the actual _function behavior_ that is going to depends on the types of the parameters over which it is applied to.
 
-_Ad hoc polymorphism_ is related to operator overloading in a sense that you won't have to define `printInt`, `printDouble`, `printString` functions, a `print` function is enough, just like a single `+` operator should be needed on `String` and `Int`.
+To make it clearer, _Ad hoc polymorphism_ avoids you from having to define `printInt`, `printDouble`, `printString` functions, a `print` function is enough.
 
-Our `print` and `+` will rely on _ad hoc polymorphism_ to behave differently based on the type of the the parameter they are applied to.
+Our `print` will rely on _ad hoc polymorphism_ to behave differently based on the type of the the parameter they are applied to.
 
-The purpose of that is mainly to program by manipulating _interfaces_ (as a concept, the layer allowing elements to communicate, not as in a _Java Interface_ even their purpose is to encode that concept) exposing shared, common, behaviors and use these behaviors instead of writing different function implementations for each of the concrete types abstracted by these interfaces.
+The purpose of that is mainly to program by manipulating _interfaces_ (as a concept, the layer allowing elements to communicate, not as in a _Java Interface_ even their purpose is to encode that concept) exposing shared, common, behaviors or properties and use these behaviors instead of writing different function implementations for each of the concrete types abstracted by these interfaces.
+
 Your `print` function might somehow require a `Printable` interface, abstracting for its argument the ability to print themselves.
 
-- _Object oriented programming_ often use __subtyping via interface inheritance__ to permit polymorphism by making concrete classes inherit interfaces exposing the needed shared behaviors
+- _Object oriented programming_ often use __interface subtyping__ to permit polymorphism by making concrete classes inherit interfaces exposing the needed shared behaviors
 - _Functionnal programming_, willing to strongly separate data and behavior __favours type classes__ which allows to add behaviors to existing types without having to modify them or having to plan they will need these functionnalities beforehand.
 
 # What's a type class ?
@@ -114,12 +119,14 @@ However, that is a bit cumbersome to use, and we can leverage _Scala_'s _implici
 
 Let's redifine our `greet` function, and make our `CanGreet` instance _implicit_ as well.
 
-Two convenient places to store those instances are:
+Some hygiene guidelines comming from _Haskell_ _type classes_:
 
-- Either in the _type class_ companion object 
-- Or in the type's _companion object_ of your type `T`, here `Player` (my prefered way)
+- Make your _type class_ instances live
+    - Either in the _type class_ companion object
+    - Or in the type's _companion object_ of your type `T`, here `Player`
+- Have no more than __one__ instance per type for a given _type class_ (especially true in _Scala_)
 
-Because both of their scopes are checked when a function requires an implicit of type `TC[T]` where `TC` is your _type class trait_ and `T` is the type for which you look for a _type class_ instance.
+_Type class_ and type companion objects are nice places for _type class_ instances because both of their scopes are checked when a function requires an implicit of type `TC[T]` where `TC` is your _type class trait_ and `T` is the type for which you look for a _type class_ instance.
 
 ```scala
 object Player {
