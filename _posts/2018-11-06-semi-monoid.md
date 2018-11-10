@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: "Anatomy of semigroups and monoids"
 author: "Myself"
 date: 2018-11-06

@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: "A minimal Haskell development environment for beginners with VS Code"
 author: "Myself"
 date: 2018-09-28

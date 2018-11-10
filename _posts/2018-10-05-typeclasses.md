@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: "Anatomy of a type class"
 author: "Myself"
 date: 2018-10-05
