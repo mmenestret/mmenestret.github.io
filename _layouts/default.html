@@ -37,9 +37,7 @@
             &nbsp;&nbsp;email&nbsp;&nbsp;&nbsp;&nbsp; = <span style="color:forestgreen"><b>"<a href="mailto:martinmenestret@gmail.com" style="color:forestgreen;"><u>here</u></a>"</b></span>,<br/>
             &nbsp;&nbsp;twitter&nbsp;&nbsp; = <span style="color:forestgreen"><b>"<a href="https://twitter.com/mmenestret" style="color:forestgreen;"><u>@mmenestret</u></a>"</b></span><br/>
             )</code><br/><br/>
-        </p>
-        
-        <!-- <p><a href="/home"><strong>Accueil</strong></a></p> -->
+        </p>        
         <p>
           <a href="/blog"><strong>Blog posts</strong></a><br/><br/>
             {%- for post in site.posts -%}              
@@ -49,6 +47,19 @@
                 </a>
                 <br/>
             {%- endfor -%}
+        </p>
+        <p>
+          <a href="/talks"><strong>Talks</strong></a><br/><br/>
+          <span class="post-meta">{{ "2018-10-31" | date_to_string }}</span>
+          <a class="post-link" href="https://fr.slideshare.net/MartinMenestret/retour-exprience-dtection-fraude-temps-rel">
+            Retour d'expérience sur un système de détéction de fraudes en temps réel
+          </a>
+          <br/>
+          <span class="post-meta">{{ "2018-11-22" | date_to_string }}</span>
+          <a class="post-link" href="https://fr.slideshare.net/MartinMenestret/retour-exprience-dtection-fraude-temps-rel">
+            Anatomie d'une type class
+          </a>
+          <br/>
         </p>
         <!-- <p><a href="/about"><strong>Qui suis-je ?</strong></a></p> -->
       </header>
