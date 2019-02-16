@@ -3,7 +3,7 @@ layout: post
 comments: true
 title: "Anatomy of functors and category theory"
 author: "Myself"
-date: 2019-02-14
+date: 2019-02-16
 catorgories: [anatomy-atlas]
 tags: [Scala, Functional programming]
 ---
