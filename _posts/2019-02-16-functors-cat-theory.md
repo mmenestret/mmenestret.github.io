@@ -22,7 +22,7 @@ I'll try to focus more on making the reader feel an intuition, a feeling about t
 
 # Introduction
 
-In this article, I'll try to give you an intuition about what is a _functor_ and what do they look like in _Scala_. Then the ones that are curious about theory can keep on reading because we'll take a quick glance at category theory and what are _functors_ in category theory terms. Then we'll try to bridge de gap between category theory and pure FP in _Scala_ and finally take a look back at our _functors_ !  
+In this article, I'll try to give you an intuition about what is a _functor_ and what do they look like in _Scala_. Then the ones that are curious about theory can keep on reading because we'll take a quick glance at category theory and what are _functors_ in category theory terms. Then we'll try to bridge the gap between category theory and pure FP in _Scala_ and finally take a look back at our _functors_ !  
 
 # What is a _functor_ ?
 
