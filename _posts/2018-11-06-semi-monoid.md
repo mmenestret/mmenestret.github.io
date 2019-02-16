@@ -17,7 +17,7 @@ I'll try to focus more on making the reader feel an intuition, a feeling about t
 - Part 2: [Anatomy of an algebra]({{ site.baseurl }}{% post_url 2018-10-06-algebras %})
 - Part 3: [Anatomy of a type class]({{ site.baseurl }}{% post_url 2018-10-05-typeclasses %})
 - Part 4: [Anatomy of semi groups and monoids]({{ site.baseurl }}{% post_url 2018-11-06-semi-monoid %})
-- Part 5: Anatomy of functors, applicatives and monads - Yet to come !
+- Part 5: [Anatomy of functors and category theory]({{ site.baseurl }}{% post_url 2019-02-16-functors-cat-theory %})
 - Part 6: Anatomy of the tagless final encoding - Yet to come !
 
 # What is a _semigroup_ ?
