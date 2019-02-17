@@ -224,8 +224,22 @@ Using `map` that way, let's see how morphisms behave:
 
 We won't go into details but we could have shown how `Option` _functor_ respects morphism composition and identity laws.
 
-I hope I made a bit clearer the parallel between theory and how it applies to FP by exploring what _functors_ are in category theory and how that translates to _Scala_ !
+## Conclusion about theory 
 
+Ok, so, we saw that:
+
+- _Functors_ allow us to map between two categories
+- When programming in pure FP, we use the `S` the category of _Scala_ types, functions and under function composition
+- The _functors_ we use then are _endofunctors_ (from `S` to `S`)
+- _Functors_, by their theorical nature, preserves the _morphisms_ and their relations between the two categories it maps
+
+What does it buy us? _Endofunctors_ in _Scala_ allow us to "translate" from origin types, let's take `A` and `B` (_objects_) for example, to new types `F[A]` and `F[B]` (_objects_), while safely preserving the functions between them (_morphisms_) and their relations.
+
+To continue with our `Option` example, `Option` type constructor "translate" our types `A` and `B` into `Option[A]` and `Option[B]` types while allowing to re-use functions from `A` to `B` them by using `Options`' `map`, turning `A => B` functions into `Option[A] => Option[B]`. 
+
+But that is not all... while giving the power to leverage the same relations we had between origin types (the same functions, once mapped), it enhances our origin types capacities with the `Functor` particularities we said we did not care about at the beginning of that article (optinnality in `Option`'s case) !
+
+I hope I made a bit clearer the parallel between theory and how it applies to FP by exploring what _functors_ are in category theory and how that translates to _Scala_ !
 
 # More material
 
