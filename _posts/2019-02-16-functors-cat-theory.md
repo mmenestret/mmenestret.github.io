@@ -224,20 +224,22 @@ Using `map` that way, let's see how morphisms behave:
 
 We won't go into details but we could have shown how `Option` _functor_ respects morphism composition and identity laws.
 
-## Conclusion about theory 
+## What does it buy us ?
 
 Ok, so, we saw that:
 
 - _Functors_ allow us to map between two categories
-- When programming in pure FP, we use the `S` the category of _Scala_ types, functions and under function composition
-- The _functors_ we use then are _endofunctors_ (from `S` to `S`)
-- _Functors_, by their theorical nature, preserves the _morphisms_ and their relations between the two categories it maps
+- A _functor_, due to its theorical nature, preserves the _morphisms_ and their relations between the two categories it maps
+- When programming in pure FP, we are in the `S` the category of _Scala_ types, functions and function composition
+- The _functors_ we use then are _endofunctors_ (from `S` to `S`) because they map _Scala_ types and functions to other _Scala_ types and functions
 
-What does it buy us? _Endofunctors_ in _Scala_ allow us to "translate" from origin types, let's take `A` and `B` (_objects_) for example, to new types `F[A]` and `F[B]` (_objects_), while safely preserving the functions between them (_morphisms_) and their relations.
+_Endofunctors_ in _Scala_ allow us to "translate" from origin types, for example `A` and `B` (_objects_), to new types `F[A]` and `F[B]` (_objects_), while safely preserving the functions between them (_morphisms_) and their relations.
 
-To continue with our `Option` example, `Option` type constructor "translate" our types `A` and `B` into `Option[A]` and `Option[B]` types while allowing to re-use functions from `A` to `B` them by using `Options`' `map`, turning `A => B` functions into `Option[A] => Option[B]`. 
+To continue with our `Option` example, `Option` type constructor "map" our types `A` and `B` into `Option[A]` and `Option[B]` types while allowing us to re-use functions from `A` to `B` by using `Options`' `map`, turning `A => B` functions into `Option[A] => Option[B]`. 
 
-But that is not all... while giving the power to leverage the same relations we had between origin types (the same functions, once mapped), it enhances our origin types capacities with the `Functor` particularities we said we did not care about at the beginning of that article (optinnality in `Option`'s case) !
+That is not over ! Now let's leave the abstraction world we all love so much and head back to concrete world.
+
+While allowing us to leverage the same relations we had between origin types (the same functions, once mapped), concrete _functors_  instances enhance our origin types with new capacities. __Indeed, _Functor_ instances are concrete data structures__ with particularities (the one we said we did not care about at the beginning of that article), the abilty to represent empty value for `Option`, the ability to hold multiple values for `List` and so on !
 
 I hope I made a bit clearer the parallel between theory and how it applies to FP by exploring what _functors_ are in category theory and how that translates to _Scala_ !
 
