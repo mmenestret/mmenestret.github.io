@@ -135,6 +135,8 @@ Be careful, if you attempt to create your own _functor_, it is not enough. __You
 
 However, you can safely use _functor_ instances brought to you by _Cats_ or _Scalaz_ because their implementations __lawfulness__ are tested for you.
 
+You can find the _Cats_ _functor_ laws [here](https://github.com/typelevel/cats/blob/master/laws/src/main/scala/cats/laws/FunctorLaws.scala) and their tests [here](https://github.com/typelevel/cats/blob/master/laws/src/main/scala/cats/laws/discipline/FunctorTests.scala). They are tested with [discipline](https://typelevel.org/cats/typeclasses/lawtesting.html).
+
 
 # An insight about the theory behind _functors_
 
