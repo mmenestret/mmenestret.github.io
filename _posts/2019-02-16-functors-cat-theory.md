@@ -31,12 +31,12 @@ There's a nice answer [by Bartosz Milewski on _Quora_](https://www.quora.com/Fun
 > I like to think of a _functor_ as a generalization of a container. A regular container contains zero or more values of some type. A _functor_ may or may not contain a value or values of some type (...) .
 >
 > So what can you do with such a container? You might think that, at the minimum, you should be able to retrieve values. But each container has its own interface for accessing values. If you try to specify that interface, you're Balkanizing containers. You're splitting them into stacks, queues, smart pointers,  futures, etc. So value retrieval is too specific.
-
+>
 > It turns out that the most general way of interacting with a container is by modifying its contents using a function.
 
 ## Let's try to rephrase that
 
-- Functors represent containers (or I like to describe them as "contexts")
+- _Functors_ represent containers
 - For now, we won't care about their particularities, all we need to know is that, at some point, they will maybe hold a value or values "inside" (but keep in mind that every container have particularities, I'll refer to that at the end)
 - Defining an generic interface about how to access values inside a container does not make any sense since some containers' values would be accessed by index (_arrays_ for example), others only by taking the first element (_stacks_ for example), other by taking the value only if it exists (_optionals_), etc.
 - __However__, we can define an interface defining how the value(s) inside containers is modified by a function despite being in a container
@@ -45,7 +45,7 @@ __So, to summarize, a _functor_ is a kind of container that can be mapped over b
 
 But _functors_ have to respect some rules, called _functor_'s laws...
 
-- __Identity__: A _functor_ mapped over by the identity function is the same as the original _functor_ (the container and its content remain unchanged)
+- __Identity__: A _functor_ mapped over by the identity function (the function returning its parameter unchanged) is the same as the original _functor_ (the container and its content remain unchanged)
 - __Composition__: A _functor_ mapped over the composition of two functions is the same as the _functor_ mapped over the first function and then mapped over the second one  
 
 # How does it look like in practice
@@ -102,7 +102,7 @@ _Functors_ are usually represented by a _type class_.
 
 As a reminder, a _type class_ is a group of types that all provide the same abilities (interface), which make them part of the same class (group, "club") of same abilities providing types (see my article about _type classes_ [here]({{ site.baseurl }}{% post_url 2018-10-05-typeclasses %})).
 
-Here the types of our _functor_ _type class_ are higher kinded types, type constructors `F[_]`, containers, and the _type class_ exposes a `map` function that takes a container of type `F[A]`, a function `A => B` that will return a `F[B]`: the pattern we just described.
+This is the _functor type class_ implementation:
 
 ```scala
 trait Functor[F[_]]{
@@ -110,7 +110,12 @@ trait Functor[F[_]]{
 }
 ```
 
-That way, for a container `F[_]` to be a _functor_, it must be an instance of the _functor_ _type class_, hence, provide an instance of `Functor`.
+1. The types our _functor_ _type class_ abstract over are _type constructors_ (`F[_]`, our container types)
+2. The _type class_ exposes a `map` function taking a container `F[A]` of values of type `A`, a function of type `A => B` and return a `F[B]`, a container of values of type `B`: the pattern we just described.
+
+> **A note about _type constructors_**: A _type constructor_ is a _type_ to which you have to supply an other _type_ to get back a new _type_. You can think of it just as functions that take values to produce values. And that makes sense, since we have to supply to our container type the type of values it will "hold" ! 
+>
+> Most used concrete _type constructors_ are `List[_]`, `Option[_]`, `Either[_,_]`, `Map[_, _]` and so on. 
 
 To illustrate what it means in your _Scala_ code let's make our `UselessContainer` a _functor_:
 
@@ -135,8 +140,9 @@ Be careful, if you attempt to create your own _functor_, it is not enough. __You
 
 However, you can safely use _functor_ instances brought to you by _Cats_ or _Scalaz_ because their implementations __lawfulness__ are tested for you.
 
-You can find the _Cats_ _functor_ laws [here](https://github.com/typelevel/cats/blob/master/laws/src/main/scala/cats/laws/FunctorLaws.scala) and their tests [here](https://github.com/typelevel/cats/blob/master/laws/src/main/scala/cats/laws/discipline/FunctorTests.scala). They are tested with [discipline](https://typelevel.org/cats/typeclasses/lawtesting.html).
+(You can find the _Cats_ _functor_ laws [here](https://github.com/typelevel/cats/blob/master/laws/src/main/scala/cats/laws/FunctorLaws.scala) and their tests [here](https://github.com/typelevel/cats/blob/master/laws/src/main/scala/cats/laws/discipline/FunctorTests.scala). They are tested with [discipline](https://typelevel.org/cats/typeclasses/lawtesting.html).)
 
+Now that you know what a _functor_ is and how it's implemented in Scala, let's talk a bit about category theory !
 
 # An insight about the theory behind _functors_
 
@@ -191,9 +197,9 @@ We can now grasp how category theory and purely functional programming can relat
 
 ## And then back to our _functors_
 
-Now that you know what a category is, and that you know about the category `S` we work in when functional programming in _Scala_, re-think about it. 
+Now that you know what a category is, and that you know about the category `S` we work in when doing functional programming in _Scala_, re-think about it. 
 
-A _functor_ `F` being a structure-preserving mapping between two categories means that it maps objects from category `A` to objects of the category `F(A)` (the category which `A` is mapped to by the _functor_ `F`) and morphisms from `A` to morphisms of `F(A)` while preserving their relations.
+A _functor_ `F` being a structure-preserving mapping between two categories means that it maps objects from category `A` to objects from category `F(A)` (the category which `A` is mapped to by the _functor_ `F`) and morphisms from `A` to morphisms of `F(A)` while preserving their relations.
 
 Since we always work with types and with functions between types in Scala, a _functor_ in that context is a mapping from and to the __same category__, between `S` and `S`, and that particular kind of _functor_ is called an __endofunctor__. 
 
@@ -233,11 +239,9 @@ We won't go into details but we could have shown how `Option` _functor_ respects
 
 ## What does it buy us ?
 
-Ok, so, to sum up:
-
 - _Functors_ are mappings between two categories
 - A _functor_, due to its theorical nature, preserves the _morphisms_ and their relations between the two categories it maps
-- When programming in pure FP, we are in `S`, the category of _Scala_ types, functions and under function composition and the _functors_ we use are then _endofunctors_ (from `S` to `S`) because they map _Scala_ types and functions between them to other _Scala_ types and functions between them
+- When programming in pure FP, we are in `S`, the category of _Scala_ types, functions and under function composition. The _functors_ we use are then _endofunctors_ (from `S` to `S`) because they map _Scala_ types and functions between them to other _Scala_ types and functions between them
 
 In programming terms, _(endo)functors_ in _Scala_ allow us to move from origin types (`A`, `B`, ...), to new target types (`F[A]`, `F[B]`, ...) while safely allowing us to re-use the origin functions and their compositions on the target types.
 
@@ -245,7 +249,18 @@ To continue with our `Option` example, `Option` type constructor "map" our types
 
 But that is not over ! Let's leave abstraction world we all love so much and head back to concrete world.
 
-Concrete _functors_  instances, enhance our origin types with new capacities. __Indeed, _functor_ instances are concrete data structures__ with particularities (the one we said we did not care about at the beginning of that article), the abilty to represent empty value for `Option`, the ability to suspend an effectful computation for `IO`, the ability to hold multiple values for `List` and so on !
+Concrete _functors_  instances enhance our origin types with new capacities. __Indeed, _functor_ instances are concrete data structures__ with particularities (the one we said we did not care about at the beginning of that article), the abilty to represent empty value for `Option`, the ability to suspend an effectful computation for `IO`, the ability to hold multiple values for `List` and so on !
+
+Ok, so, to sum up, why _functors_ are awesome ? The two main reasons I can think of are:
+
+1. Abstraction, abstraction, abstraction... Code using _functors_ allows you to only care about the fact that what you manipulate is mappable.
+    - It increases code reuse since a piece of code using _functors_ can be called with any concrete _functor_ instance 
+    - And it reduces a lot error risks since you _have to_ deal with less particularities of the concrete, final, data structure your functions will be called with
+2. They add functionnalities to existing types, while allowing to still use functions on them (you would not want to re-write them for every _functor_ instances), and that's a big deal:
+    - `Option` allow you to bring `null` into a concrete value, making code a lot healthier (and functions purer)
+    - `Either` allow you to bring computation errors into concrete values, making dealing with computation errors a lot healthier (and functions purer)
+    - `IO` allow you to turn a computations into a values, allowing better compositionality and referential transparency
+    - And so on...
 
 I hope I made a bit clearer what _functors_ are in the context of category theory and how that translates to pure FP in _Scala_ !
 
@@ -266,6 +281,11 @@ To sum up, we saw:
 - Some examples and identified a common pattern
 - How we abstract over and encode that pattern in _Scala_ as a _type class_ of _type constructors_
 - We had a modest overview about category theory, what _functors_ are in category theory, and how both relates to pure FP in _Scala_
+- We concluded by how great _functors_ are and for what practical reasons
 
 I'll try to keep that blog post updated.
 If there are any additions, imprecision or mistakes that I should correct or if you need more explanations, feel free to contact me on Twitter or by mail !
+
+---
+
+___Edit__: Thanks [Jules Ivanic](https://twitter.com/guizmaii) for the review :)._
