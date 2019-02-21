@@ -48,6 +48,8 @@ But _functors_ have to respect some rules, called _functor_'s laws...
 - __Identity__: A _functor_ mapped over by the identity function (the function returning its parameter unchanged) is the same as the original _functor_ (the container and its content remain unchanged)
 - __Composition__: A _functor_ mapped over the composition of two functions is the same as the _functor_ mapped over the first function and then mapped over the second one  
 
+> A quick note about _functor_ / _container_ parallel: the analogy is convenient to get the intuition, but not all _functors_ will not fit into that model, keep it in a corner of you mind so that you're not taken off guard.
+
 # How does it look like in practice
 
 Along the next sections, the examples and code snippets I'll provide will be in _Scala_. 
