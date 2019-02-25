@@ -152,7 +152,7 @@ trait CanGreet[T] {
     def sayHi(t: T): String
 }
 
-case class Player(nickname: String, var level: Int)
+case class Player(nickname: String, level: Int)
 
 object Player {
     implicit val playerGreeter: CanGreet[Player] = new CanGreet[Player] {
@@ -232,7 +232,7 @@ implicit class CanGreetSyntax[T: CanGreet](t: T) {
     def greet: String = CanGreet[T].sayHi(t)
 }
 
-case class Player(nickname: String, var level: Int)
+case class Player(nickname: String, level: Int)
 
 object Player {
     implicit val playerGreeter: CanGreet[Player] = new CanGreet[Player] {
